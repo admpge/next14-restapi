@@ -81,3 +81,43 @@ export const PATCH = async (request: Request) => {
     );
   }
 };
+
+export const DELETE = async (request: Request) => {
+  try {
+    const { searchParams } = new URL(request.url);
+    const userId = searchParams.get("userId");
+
+    if (!userId) {
+      return NextResponse.json(
+        { message: "User ID is required" },
+        { status: 400 }
+      );
+    }
+
+    if (!ObjectId.isValid(userId)) {
+      return NextResponse.json({ message: "Invalid User ID" }, { status: 400 });
+    }
+
+    await connect();
+
+    const deletedUser = await User.findByIdAndDelete(userId);
+
+    if (!deletedUser) {
+      return NextResponse.json(
+        { message: "User not found in the database" },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json(
+      { message: "User deleted successfully", user: deletedUser },
+      { status: 200 }
+    );
+  } catch (error: any) {
+    console.error("Error in deleting user:", error);
+    return NextResponse.json(
+      { message: "Error in deleting user", error: error.message },
+      { status: 500 }
+    );
+  }
+};
