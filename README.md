@@ -123,15 +123,15 @@ This project is a RESTful API for managing blogs, users, and categories built wi
 
   - `userId`: The ID of the user.
 
-  -**Delete a category for a user**
+- **Delete a category for a user**
 
-  ```http
-  DELETE /api/categories/[category]
-  ```
+```http
+DELETE /api/categories/[category]
+```
 
-  **Query Parameters:**
+**Query Parameters:**
 
-  - `userId`: The ID of the user.
+- `userId`: The ID of the user.
 
 ### Blog Endpoints
 
