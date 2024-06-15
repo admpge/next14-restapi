@@ -75,6 +75,21 @@ This project is a RESTful API for managing blogs, users, and categories built wi
     POST /api/users
     ```
 
+- **Update a user by ID**
+
+    ```http
+    PATCH /api/users
+    ```
+
+- **Delete a user by ID**
+
+    ```http
+    DELETE /api/users
+    ```
+
+    Query Parameters:
+    - `userId`: The ID of the user.
+
 ### Blog Endpoints
 
 - **Get a blog by ID**
