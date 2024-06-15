@@ -1,36 +1,195 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Blog API with Next.js and Mongoose
 
-## Getting Started
+This project is a RESTful API for managing blogs, users and categories built with Next.js using API routes and serverless functions, Mongoose and MongoDB.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Create, read, update, and delete blogs
+- User authentication and authorization
+- Category management
+- Pagination and search functionality
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Technologies Used
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Next.js
+- Mongoose
+- MongoDB
+- TypeScript
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Project Setup
 
-## Learn More
+### Prerequisites
 
-To learn more about Next.js, take a look at the following resources:
+- Node.js (>= 12.x)
+- MongoDB
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Installation
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+1. **Clone the repository:**
 
-## Deploy on Vercel
+   ```sh
+   git clone https://github.com/your-username/blog-api-nextjs.git
+   cd blog-api-nextjs
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+2. **Install dependencies:**
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+   ```sh
+   npm install
+   ```
+
+3. **Environment Variables:**
+
+   Create a `.env.local` file in the root directory and add your MongoDB connection string:
+
+   ```env
+   MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.mongodb.net/<dbname>?retryWrites=true&w=majority
+   ```
+
+4. **Run the development server:**
+
+   ```sh
+   npm run dev
+   ```
+
+5. **Build for production:**
+
+   ```sh
+   npm run build
+   npm start
+   ```
+
+## API Documentation
+
+### Endpoints
+
+#### Blog Endpoints
+
+- **Get a blog by ID**
+
+  ```http
+  GET /api/blogs/[blog]
+  ```
+
+  **Query Parameters:**
+
+  - `userId`: The ID of the user.
+  - `categoryId`: The ID of the category.
+
+  **Response:**
+
+  ```json
+  {
+    "blog": {
+      "_id": "60c72b2f9b1d8c001f8e4e0b",
+      "title": "Blog Title",
+      "description": "Blog Description",
+      "user": "60c72b2f9b1d8c001f8e4e0a",
+      "category": "60c72b2f9b1d8c001f8e4e0c",
+      "createdAt": "2021-06-14T12:34:56.789Z",
+      "updatedAt": "2021-06-14T12:34:56.789Z"
+    }
+  }
+  ```
+
+- **Update a blog by ID**
+
+  ```http
+  PATCH /api/blogs/[blog]
+  ```
+
+  **Query Parameters:**
+
+  - `userId`: The ID of the user.
+
+  **Request Body:**
+
+  ```json
+  {
+    "title": "Updated Blog Title",
+    "description": "Updated Blog Description"
+  }
+  ```
+
+  **Response:**
+
+  ```json
+  {
+    "message": "Blog updated",
+    "blog": {
+      "_id": "60c72b2f9b1d8c001f8e4e0b",
+      "title": "Updated Blog Title",
+      "description": "Updated Blog Description",
+      "user": "60c72b2f9b1d8c001f8e4e0a",
+      "category": "60c72b2f9b1d8c001f8e4e0c",
+      "createdAt": "2021-06-14T12:34:56.789Z",
+      "updatedAt": "2021-06-14T12:34:56.789Z"
+    }
+  }
+  ```
+
+- **Delete a blog by ID**
+
+  ```http
+  DELETE /api/blogs/[blog]
+  ```
+
+  **Query Parameters:**
+
+  - `userId`: The ID of the user.
+
+  **Response:**
+
+  ```json
+  {
+    "message": "Blog deleted successfully"
+  }
+  ```
+
+#### User Endpoints
+
+- **Get a user by ID**
+
+  ```http
+  GET /api/users/[user]
+  ```
+
+  **Response:**
+
+  ```json
+  {
+    "user": {
+      "_id": "60c72b2f9b1d8c001f8e4e0a",
+      "username": "john_doe",
+      "email": "john.doe@example.com",
+      "createdAt": "2021-06-14T12:34:56.789Z",
+      "updatedAt": "2021-06-14T12:34:56.789Z"
+    }
+  }
+  ```
+
+#### Category Endpoints
+
+- **Get a category by ID**
+
+  ```http
+  GET /api/categories/[category]
+  ```
+
+  **Response:**
+
+  ```json
+  {
+    "category": {
+      "_id": "60c72b2f9b1d8c001f8e4e0c",
+      "title": "Category Title",
+      "user": "60c72b2f9b1d8c001f8e4e0a",
+      "createdAt": "2021-06-14T12:34:56.789Z",
+      "updatedAt": "2021-06-14T12:34:56.789Z"
+    }
+  }
+  ```
+
+## License
+
+This project is licensed under the MIT License.
